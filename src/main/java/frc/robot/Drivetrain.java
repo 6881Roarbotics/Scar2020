@@ -17,15 +17,23 @@ class Drivetrain {
         
     }
 
+    /**
+     * Setting power to the left side of the drivetrain
+     * @param power The power (-1 - 1) to be sent to the motors
+     */
     void setLeft(double power){
-
+        //Find out which motor needs to be negative
         leftDrive1.set(power);
         leftDrive2.set(-power);
 
     }
 
+    /**
+     * Setting power to the right side of the drivetrain
+     * @param power The power (-1 - 1) to be sent to the motors
+     */
     void setRight(double power){
-
+        //Find out which motor needs to be negative
         rightDrive1.set(power);
         rightDrive2.set(-power);
 

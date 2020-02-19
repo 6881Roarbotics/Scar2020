@@ -86,10 +86,8 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
 
+    
 
-    Double input = 1.0;
-
-    scar.drivetrain.setLeft(input);
   }
 
   /**
