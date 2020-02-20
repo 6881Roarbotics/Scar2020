@@ -4,6 +4,7 @@ class Scar {
     Shooter shooter;
     Intake intake;
     Climber climber;
+    Controller controller;
 
     Scar(){
 
@@ -11,8 +12,8 @@ class Scar {
         shooter = new Shooter();
         intake = new Intake();
         climber = new Climber();
+        controller = new Controller();
         
     }
-
 
 }
