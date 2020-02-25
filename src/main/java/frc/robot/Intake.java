@@ -1,19 +1,21 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.Spark;
 
-class Intake{
-
-    private Spark intake;
+class Intake extends Spark{
 
     Intake(){
 
-        intake = new Spark(7);
+        super(7);
    
     }
+
     /**
      *  Makes ball go in.
      */
     void ballIn() {
-        intake.set(1);
+
+        set(1);
+
     }
+    
 }

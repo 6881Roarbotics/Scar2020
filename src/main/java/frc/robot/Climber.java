@@ -1,19 +1,17 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.Spark;
 
-class Climber{
-
-    private Spark climbMotor;
+class Climber extends Spark{
 
     Climber(){
 
-        climbMotor = new Spark(8);
+        super(8);
 
     }
 
-    void setSpeed(double speed){
+    void setMotor(double speed){
 
-        climbMotor.set(speed);
+        set(speed);
 
     }
 
