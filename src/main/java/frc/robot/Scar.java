@@ -4,7 +4,6 @@ class Scar {
     Shooter shooter;
     Intake intake;
     Climber climber;
-    Controller controller;
 
     Scar(){
 

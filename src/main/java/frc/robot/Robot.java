@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,7 +19,8 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   
-  Scar scar;
+  private Scar scar;
+  private Controller controller;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -30,7 +32,9 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
+    controller = new Controller();
     scar = new Scar();
+
   }
 
   /**
@@ -95,5 +99,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+
+    AxisValue axisValueLeft = controller.getCleansedAxis(Hand.kLeft);
+    AxisValue axisValueRight = controller.getCleansedAxis(Hand.kRight);
+
+    scar.drivetrain.setLeft(axisValueLeft.getY());
+    scar.drivetrain.setRight(axisValueRight.getY());
+
   }
 }
