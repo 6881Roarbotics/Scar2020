@@ -10,12 +10,10 @@ class Intake{
         intake = new Spark(7);
    
     }
-
+    /**
+     *  Makes ball go in.
+     */
     void ballIn() {
         intake.set(1);
-    }
-
-    void ballOut() {
-        intake.set(-1);
     }
 }
