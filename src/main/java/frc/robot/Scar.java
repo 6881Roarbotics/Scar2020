@@ -1,3 +1,5 @@
+package frc.robot;
+
 class Scar {
 
     Drivetrain drivetrain;
@@ -11,8 +13,6 @@ class Scar {
         shooter = new Shooter();
         intake = new Intake();
         climber = new Climber();
-        controller = new Controller();
-        
     }
 
 }
