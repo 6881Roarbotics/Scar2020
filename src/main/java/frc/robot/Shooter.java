@@ -1,15 +1,16 @@
 package frc.robot;
-import edu.wpi.first.wpilibj.Talon;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 class Shooter{
 
-private Talon topWheel;
-private Talon botWheel;
+private TalonSRX topWheel;
+private TalonSRX botWheel;
 
     Shooter(){
 
-        topWheel = new Talon(5);
-        botWheel = new Talon(6);
+        topWheel = new TalonSRX(CAN.SHOOTER_TOP);
+        botWheel = new TalonSRX(CAN.SHOOTER_BOTTOM);
 
     }
 
@@ -18,8 +19,8 @@ private Talon botWheel;
      */
     void enable(){
         //check which motor needs to be negative
-        topWheel.set(1);
-        botWheel.set(-1);
+        topWheel.set(TalonSRXControlMode.PercentOutput, 1);
+        botWheel.set(TalonSRXControlMode.PercentOutput, -1);
 
     }
 
@@ -29,7 +30,7 @@ private Talon botWheel;
      */
     void setBotWheelSpeed(double speed){
 
-        botWheel.set(speed);
+        botWheel.set(TalonSRXControlMode.PercentOutput, speed);
 
     }
 
@@ -39,7 +40,7 @@ private Talon botWheel;
      */
     void setTopWheelSpeed(double speed){
 
-        topWheel.set(speed);
+        topWheel.set(TalonSRXControlMode.PercentOutput, speed);
 
     }
 }

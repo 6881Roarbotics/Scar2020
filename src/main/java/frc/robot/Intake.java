@@ -5,7 +5,7 @@ class Intake extends Spark{
 
     Intake(){
 
-        super(7);
+        super(CAN.INTAKE);
    
     }
 

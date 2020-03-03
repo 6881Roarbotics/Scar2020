@@ -1,33 +1,35 @@
 package frc.robot;
+import java.io.Console;
+
 import edu.wpi.first.wpilibj.XboxController;
 
-class Controller extends XboxController{
+class Controller extends XboxController {
 
-    private AxisValue axisValue;
 
     Controller(){
-
         super(0);
-        axisValue = new AxisValue(0.0, 0.0);
-
     }
 
     public AxisValue getCleansedAxis(Hand hand){
+        
+        double xAxis = 0;
+        double yAxis = 0;
 
-        double xAxis = getX(hand);
-        double yAxis = getY(hand);
+        if(hand == Hand.kLeft) {
+            xAxis = getRawAxis(0);
+            yAxis = getRawAxis(1); 
+        } else if (hand == Hand.kRight) {
+            xAxis = getRawAxis(2);
+            yAxis = getRawAxis(3); 
+        }
 
-        if(Math.abs(xAxis) > 0.05)
+        if(Math.abs(xAxis) < 0.05)
             xAxis = 0.0;
 
-        if(Math.abs(yAxis) > 0.05)
+        if(Math.abs(yAxis) < 0.05)
             yAxis = 0.0;
 
-        axisValue.setX(xAxis);
-        axisValue.setY(yAxis);
-
-        return axisValue;
-
+        return new AxisValue(xAxis, yAxis);
     }
 
 }

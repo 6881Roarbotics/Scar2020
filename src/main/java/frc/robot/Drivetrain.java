@@ -1,19 +1,20 @@
 package frc.robot;
-import edu.wpi.first.wpilibj.VictorSP;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 class Drivetrain {
 
-    private VictorSP leftDrive1;
-    private VictorSP leftDrive2;
-    private VictorSP rightDrive1;
-    private VictorSP rightDrive2;
+    private VictorSPX leftFrontMotor;
+    private VictorSPX leftBackMotor;
+    private VictorSPX rightFrontMotor;
+    private VictorSPX rightBackMotor;
 
     Drivetrain(){
 
-        leftDrive1 = new VictorSP(1);
-        leftDrive2 = new VictorSP(2);
-        rightDrive1 = new VictorSP(3);
-        rightDrive2 = new VictorSP(4);
+        leftFrontMotor = new VictorSPX(CAN.DRIVETRAIN_LEFT_FRONT);
+        leftBackMotor = new VictorSPX(CAN.DRIVETRAIN_LEFT_BACK);
+        rightFrontMotor = new VictorSPX(CAN.DRIVETRAIN_RIGHT_FRONT);
+        rightBackMotor = new VictorSPX(CAN.DRIVETRAIN_RIGHT_BACK);
         
     }
 
@@ -22,9 +23,10 @@ class Drivetrain {
      * @param power The power (-1 - 1) to be sent to the motors
      */
     void setLeft(double power){
+
         //Find out which motor needs to be negative
-        leftDrive1.set(power);
-        leftDrive2.set(-power);
+        leftFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
+        leftBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
 
     }
 
@@ -34,8 +36,8 @@ class Drivetrain {
      */
     void setRight(double power){
         //Find out which motor needs to be negative
-        rightDrive1.set(power);
-        rightDrive2.set(-power);
+        rightFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
+        rightBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
 
     }
 

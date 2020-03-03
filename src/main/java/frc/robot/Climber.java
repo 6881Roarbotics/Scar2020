@@ -5,7 +5,7 @@ class Climber extends Spark{
 
     Climber(){
 
-        super(8);
+        super(CAN.CLIMBER);
 
     }
 

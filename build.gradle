@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.4.1"
+    id "edu.wpi.first.GradleRIO" version "2020.3.2"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -53,6 +53,9 @@ dependencies {
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
     testCompile 'junit:junit:4.12'
+
+    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
