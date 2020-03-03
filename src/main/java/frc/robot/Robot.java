@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -102,8 +103,8 @@ public class Robot extends TimedRobot {
     AxisValue axisValueLeft = controller.getCleansedAxis(Hand.kLeft);
     AxisValue axisValueRight = controller.getCleansedAxis(Hand.kRight);
 
-    scar.drivetrain.setLeft(axisValueLeft.getY());
-    scar.drivetrain.setRight(axisValueRight.getY());
+    scar.drivetrain.setLeft(axisValueLeft.getY() - axisValueRight.getX());
+    scar.drivetrain.setRight(axisValueRight.getY() + axisValueRight.getX());
 
   }
 }

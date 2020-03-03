@@ -1,16 +1,19 @@
 package frc.robot;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.wpilibj.Spark;
 
 class Shooter{
 
 private TalonSRX topWheel;
 private TalonSRX botWheel;
+private Spark elevator;
 
     Shooter(){
 
         topWheel = new TalonSRX(CAN.SHOOTER_TOP);
         botWheel = new TalonSRX(CAN.SHOOTER_BOTTOM);
+        elevator = new Spark(CAN.ELEVATOR);
 
     }
 
@@ -41,6 +44,18 @@ private TalonSRX botWheel;
     void setTopWheelSpeed(double speed){
 
         topWheel.set(TalonSRXControlMode.PercentOutput, speed);
+
+    }
+
+    void elevateUp(){
+
+        elevator.set(1);
+
+    }
+
+    void elevateDown(){
+
+        elevator.set(-1);
 
     }
 }

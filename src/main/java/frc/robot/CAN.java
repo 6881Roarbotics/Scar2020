@@ -11,4 +11,7 @@ interface CAN{
     public static final int INTAKE = 5;
     public static final int CLIMBER = 7;
     public static final int COMPRESSOR = 9;
+
+    //PWM Chnannel for elevator motor
+    public static final int ELEVATOR = 0;
 }
