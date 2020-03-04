@@ -5,45 +5,34 @@ import edu.wpi.first.wpilibj.Spark;
 
 class Shooter{
 
-private TalonSRX topWheel;
-private TalonSRX botWheel;
+private TalonSRX shooterWheel;
+private TalonSRX angler;
 private Spark elevator;
 
     Shooter(){
 
-        topWheel = new TalonSRX(CAN.SHOOTER_TOP);
-        botWheel = new TalonSRX(CAN.SHOOTER_BOTTOM);
+        shooterWheel = new TalonSRX(CAN.SHOOTER_WHEEL);
+        angler = new TalonSRX(CAN.ANGLER);
         elevator = new Spark(CAN.ELEVATOR);
 
     }
 
     /**
-     * enables both wheels at full speed
+     * enables the wheel at full speed
      */
     void enable(){
-        //check which motor needs to be negative
-        topWheel.set(TalonSRXControlMode.PercentOutput, 1);
-        botWheel.set(TalonSRXControlMode.PercentOutput, -1);
+        
+        shooterWheel.set(TalonSRXControlMode.PercentOutput, 1);
 
     }
 
     /**
-     * Sets the speed of the bottom wheel
+     * Sets the speed of the wheel
      * @param speed the speed to set the wheel to (-1 - 1)
      */
-    void setBotWheelSpeed(double speed){
+    void setWheelSpeed(double speed){
 
-        botWheel.set(TalonSRXControlMode.PercentOutput, speed);
-
-    }
-
-    /**
-     * Sets the speed of the top wheel
-     * @param speed the speed to set the wheel to (-1 - 1)
-     */
-    void setTopWheelSpeed(double speed){
-
-        topWheel.set(TalonSRXControlMode.PercentOutput, speed);
+        shooterWheel.set(TalonSRXControlMode.PercentOutput, speed);
 
     }
 
@@ -58,4 +47,17 @@ private Spark elevator;
         elevator.set(-1);
 
     }
+
+    void angleUp(){
+
+        angler.set(TalonSRXControlMode.PercentOutput, 1);
+
+    }
+
+    void angleDown(){
+
+        angler.set(TalonSRXControlMode.PercentOutput, -1);
+
+    }
+
 }
