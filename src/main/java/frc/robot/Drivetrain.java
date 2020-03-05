@@ -12,12 +12,18 @@ class Drivetrain {
     private VictorSPX rightFrontMotor;
     private VictorSPX rightBackMotor;
 
+    private final double defaultSpeed;
+    private final double defaultTurnSpeed;
+
     Drivetrain(){
 
         leftFrontMotor = new VictorSPX(CAN.DRIVETRAIN_LEFT_FRONT);
         leftBackMotor = new VictorSPX(CAN.DRIVETRAIN_LEFT_BACK);
         rightFrontMotor = new VictorSPX(CAN.DRIVETRAIN_RIGHT_FRONT);
         rightBackMotor = new VictorSPX(CAN.DRIVETRAIN_RIGHT_BACK);
+
+        defaultSpeed = 0.5;
+        defaultTurnSpeed = 0.5;
         
     }
 
@@ -29,7 +35,7 @@ class Drivetrain {
 
         //Find out which motor needs to be negative
         leftFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
-        leftBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
+        leftBackMotor.set(VictorSPXControlMode.PercentOutput,   -power);
 
     }
 
@@ -39,8 +45,58 @@ class Drivetrain {
      */
     void setRight(double power){
         //Find out which motor needs to be negative
-        rightFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
+        rightFrontMotor.set(VictorSPXControlMode.PercentOutput, power);
         rightBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
+
+    }
+
+    void setMotors(AxisValue values){
+
+        double max = Math.abs(values.getY());
+
+        if(Math.abs(values.getX()) > max) {
+            max = Math.abs(values.getX());
+        }
+
+        double sum = values.getY() + values.getX();
+        double diff = values.getY() - values.getX();
+
+        if(values.getY() >= 0){
+
+            if(values.getX() >= 0){
+                setLeft(max);
+                setRight(diff);
+            }
+            else{
+                setLeft(sum);
+                setRight(max);
+            }
+
+        }
+        else{
+
+            if(values.getX() >= 0){
+                setLeft(sum);
+                setRight(-max);
+            }
+            else{
+                setLeft(diff);
+                setRight(-max);
+            }
+
+        }
+
+    }
+
+    double getDefaultSpeed(){
+
+        return defaultSpeed;
+
+    }
+
+    double getDefaultTurnSpeed(){
+
+        return defaultTurnSpeed;
 
     }
 
