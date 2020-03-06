@@ -100,11 +100,9 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    AxisValue axisValueLeft = controller.getCleansedAxis(Hand.kLeft);
-    AxisValue axisValueRight = controller.getCleansedAxis(Hand.kRight);
+    AxisValue axisValues = controller.getCleansedAxes();
+    scar.drivetrain.setMotors(axisValues);
 
-    scar.drivetrain.setLeft((axisValueLeft.getY() * scar.drivetrain.getDefaultSpeed()) + (axisValueRight.getX() * (1 - (axisValueLeft.getY() * scar.drivetrain.getDefaultSpeed() * scar.drivetrain.getDefaultTurnSpeed()))));
-    scar.drivetrain.setRight((axisValueLeft.getY() * scar.drivetrain.getDefaultSpeed()) - (axisValueRight.getX() * (1 - (axisValueLeft.getY() * scar.drivetrain.getDefaultSpeed() * scar.drivetrain.getDefaultTurnSpeed()))));
-
+    
   }
 }

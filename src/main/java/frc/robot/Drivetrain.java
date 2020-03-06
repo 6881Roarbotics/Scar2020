@@ -34,8 +34,8 @@ class Drivetrain {
     void setLeft(double power){
 
         //Find out which motor needs to be negative
-        leftFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
-        leftBackMotor.set(VictorSPXControlMode.PercentOutput,   -power);
+        leftFrontMotor.set(VictorSPXControlMode.PercentOutput, power);
+        leftBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
 
     }
 
@@ -45,8 +45,8 @@ class Drivetrain {
      */
     void setRight(double power){
         //Find out which motor needs to be negative
-        rightFrontMotor.set(VictorSPXControlMode.PercentOutput, power);
-        rightBackMotor.set(VictorSPXControlMode.PercentOutput,   power);
+        rightFrontMotor.set(VictorSPXControlMode.PercentOutput, -power);
+        rightBackMotor.set(VictorSPXControlMode.PercentOutput,   -power);
 
     }
 
@@ -60,6 +60,8 @@ class Drivetrain {
 
         double sum = values.getY() + values.getX();
         double diff = values.getY() - values.getX();
+
+        double d = 0;
 
         if(values.getY() >= 0){
 
@@ -76,8 +78,8 @@ class Drivetrain {
         else{
 
             if(values.getX() >= 0){
-                setLeft(sum);
-                setRight(-max);
+                setLeft(-max);
+                setRight(sum);
             }
             else{
                 setLeft(diff);

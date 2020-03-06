@@ -22,29 +22,34 @@ private Spark elevator;
      */
     void enable(){
         
-        shooterWheel.set(TalonSRXControlMode.PercentOutput, 1);
+        shooterWheel.set(TalonSRXControlMode.PercentOutput, -1);
 
     }
 
     /**
-     * Sets the speed of the wheel
-     * @param speed the speed to set the wheel to (-1 - 1)
+     * enables the wheel at full speed
      */
-    void setWheelSpeed(double speed){
-
-        shooterWheel.set(TalonSRXControlMode.PercentOutput, speed);
+    void disable(){
+        
+        shooterWheel.set(TalonSRXControlMode.PercentOutput, 0);
 
     }
 
     void elevateUp(){
 
-        elevator.set(1);
+        elevator.set(-0.5);
 
     }
 
     void elevateDown(){
 
-        elevator.set(-1);
+        elevator.set(0.5);
+
+    }
+
+    void stopElevator(){
+
+        elevator.set(0);
 
     }
 
