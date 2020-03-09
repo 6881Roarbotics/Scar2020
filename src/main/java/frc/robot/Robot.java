@@ -106,78 +106,22 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    opControls();
+  }
 
-    AxisValue axisValues = driveController.getCleansedAxes();
-    AxisValue triggerValues = driveController.getCleansedTriggers();
+  void opControls(){
 
-    //Left + Right sticks - Drive + Turn
-    scar.drivetrain.setMotors(axisValues);
+    scar.shooter.setWheelSpeed(opController.getCleansedTriggers().getY());
 
-    //Right Trigger - Shoot
-    scar.shooter.setWheelSpeed(triggerValues.getY());
-
-    //Left Trigger - Move Elevator Up
-    if(triggerValues.getX() > 0.5) {
-
+    if(opController.getPOV() == 0)
       scar.shooter.elevateUp();
 
-    } 
-    else {
-      
-      scar.shooter.stopElevator();
-    
-    }
-
-    //Start - Move Elevator Down
-    if(driveController.getRawButton(7)) {
-      
+    else if(opController.getPOV() == 180)
       scar.shooter.elevateDown();
 
-    }
-
-    //Y Button - Angle Shooter Up
-    if(driveController.getYButton()) {
-
-      scar.shooter.angleUp();
-
-    }
-
-    //X Button - Angle Shooter Down
-    else if(driveController.getXButton()) {
-
-      scar.shooter.angleDown();
-
-    }
-
-    //Left Bumper - Run Intake
-    if(driveController.getBumper(Hand.kLeft)) {
-
-      scar.intake.ballIn();
-
-    }
-
-    //B Button - Climber Up
-    if(driveController.getBButton()) {
-
-      scar.climber.climb(1);
-
-    } 
-
-    // //A Button - Climber Down
-    else if(driveController.getAButton()) {
-
-      scar.climber.climb(-1);
-
-    }
-
-    //Back - Toggle Intake Solenoid
-    if(driveController.getRawButton(6)) {
-
-      scar.intake.toggleSolenoid();
-
-    }
-
-
+    else
+      scar.shooter.stopElevator();
 
   }
+
 }

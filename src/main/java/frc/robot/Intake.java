@@ -1,4 +1,7 @@
 package frc.robot;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -6,12 +9,12 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 class Intake extends Spark{
 
     private DoubleSolenoid intakeSolenoid;
-    private Spark intake;
+    private CANSparkMax intake;
 
     Intake(){
 
         super(CAN.INTAKE);
-        intake = new Spark(CAN.INTAKE);
+        intake = new CANSparkMax(CAN.INTAKE, MotorType.kBrushed);
         intakeSolenoid = new DoubleSolenoid(0, 1);
    
     }
