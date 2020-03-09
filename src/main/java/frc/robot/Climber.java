@@ -9,7 +9,7 @@ class Climber extends Spark{
 
     }
 
-    void setMotor(double speed){
+    void climb(double speed){
 
         set(speed);
 

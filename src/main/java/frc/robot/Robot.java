@@ -1,6 +1,8 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -20,7 +22,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
   
   private Scar scar;
-  private Controller controller;
+  private Controller driveController;
+  private Controller opController;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -32,7 +35,8 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    controller = new Controller();
+    driveController = new Controller(0);
+    opController = new Controller(1);
     scar = new Scar();
 
   }
@@ -66,6 +70,9 @@ public class Robot extends TimedRobot {
     // autoSelected = SmartDashboard.getString("Auto Selector",
     // defaultAuto);
     System.out.println("Auto selected: " + m_autoSelected);
+
+    //scar.intake.setSolenoid(Value.kForward);
+
   }
 
   /**
@@ -100,9 +107,77 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
 
-    AxisValue axisValues = controller.getCleansedAxes();
+    AxisValue axisValues = driveController.getCleansedAxes();
+    AxisValue triggerValues = driveController.getCleansedTriggers();
+
+    //Left + Right sticks - Drive + Turn
     scar.drivetrain.setMotors(axisValues);
 
+    //Right Trigger - Shoot
+    scar.shooter.setWheelSpeed(triggerValues.getY());
+
+    //Left Trigger - Move Elevator Up
+    if(triggerValues.getX() > 0.5) {
+
+      scar.shooter.elevateUp();
+
+    } 
+    else {
+      
+      scar.shooter.stopElevator();
     
+    }
+
+    //Start - Move Elevator Down
+    if(driveController.getRawButton(7)) {
+      
+      scar.shooter.elevateDown();
+
+    }
+
+    //Y Button - Angle Shooter Up
+    if(driveController.getYButton()) {
+
+      scar.shooter.angleUp();
+
+    }
+
+    //X Button - Angle Shooter Down
+    else if(driveController.getXButton()) {
+
+      scar.shooter.angleDown();
+
+    }
+
+    //Left Bumper - Run Intake
+    if(driveController.getBumper(Hand.kLeft)) {
+
+      scar.intake.ballIn();
+
+    }
+
+    //B Button - Climber Up
+    if(driveController.getBButton()) {
+
+      scar.climber.climb(1);
+
+    } 
+
+    // //A Button - Climber Down
+    else if(driveController.getAButton()) {
+
+      scar.climber.climb(-1);
+
+    }
+
+    //Back - Toggle Intake Solenoid
+    if(driveController.getRawButton(6)) {
+
+      scar.intake.toggleSolenoid();
+
+    }
+
+
+
   }
 }

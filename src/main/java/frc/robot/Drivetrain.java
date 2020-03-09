@@ -2,9 +2,6 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
 class Drivetrain {
 
     private VictorSPX leftFrontMotor;
@@ -52,14 +49,14 @@ class Drivetrain {
 
     void setMotors(AxisValue values){
 
-        double max = Math.abs(values.getY());
+        double max = Math.abs(Math.pow(values.getY(), 3));
 
-        if(Math.abs(values.getX()) > max) {
-            max = Math.abs(values.getX());
+        if(Math.abs(Math.pow(values.getX(), 3)) > max) {
+            max = Math.abs(Math.pow(values.getX(), 3));
         }
 
-        double sum = values.getY() + values.getX();
-        double diff = values.getY() - values.getX();
+        double sum = Math.pow(values.getY(), 3) + Math.pow(values.getX(), 3);
+        double diff = Math.pow(values.getY(), 3) - Math.pow(values.getX(), 3);
 
         double d = 0;
 

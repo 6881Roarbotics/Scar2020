@@ -1,19 +1,27 @@
 package frc.robot;
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import edu.wpi.first.wpilibj.Spark;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 class Shooter{
 
 private TalonSRX shooterWheel;
-private TalonSRX angler;
-private Spark elevator;
+private DoubleSolenoid angler;
+private TalonSRX elevator;
+
+private double maxWheelSpeed;
+private double elevatorSpeed;
 
     Shooter(){
 
         shooterWheel = new TalonSRX(CAN.SHOOTER_WHEEL);
-        angler = new TalonSRX(CAN.ANGLER);
-        elevator = new Spark(CAN.ELEVATOR);
+        //angler = new TalonSRX(CAN.ANGLER);
+        elevator = new TalonSRX(CAN.ELEVATOR);
+
+        maxWheelSpeed = 0.9;
+        elevatorSpeed = 0.5;
+        //anglerSpeed = 0.5;
 
     }
 
@@ -22,12 +30,12 @@ private Spark elevator;
      */
     void enable(){
         
-        shooterWheel.set(TalonSRXControlMode.PercentOutput, -1);
+        shooterWheel.set(TalonSRXControlMode.PercentOutput, -maxWheelSpeed);
 
     }
 
     /**
-     * enables the wheel at full speed
+     * disables the wheel
      */
     void disable(){
         
@@ -35,34 +43,48 @@ private Spark elevator;
 
     }
 
+    //Sets the wheel to a specific value
+    void setWheelSpeed(double speed){
+
+        if(speed > maxWheelSpeed){
+
+            shooterWheel.set(TalonSRXControlMode.PercentOutput, -maxWheelSpeed);
+
+        }
+        else{
+            
+            shooterWheel.set(TalonSRXControlMode.PercentOutput, -speed);
+
+        }
+        
+    }
+
     void elevateUp(){
 
-        elevator.set(-0.5);
+        elevator.set(TalonSRXControlMode.PercentOutput, -elevatorSpeed);
 
     }
 
     void elevateDown(){
 
-        elevator.set(0.5);
+        elevator.set(TalonSRXControlMode.PercentOutput, elevatorSpeed);
 
     }
 
     void stopElevator(){
 
-        elevator.set(0);
+        elevator.set(TalonSRXControlMode.PercentOutput, 0);
 
     }
 
-    void angleUp(){
-
-        angler.set(TalonSRXControlMode.PercentOutput, 1);
+    void angleUp() {
 
     }
 
     void angleDown(){
 
-        angler.set(TalonSRXControlMode.PercentOutput, -1);
-
     }
+
+
 
 }
