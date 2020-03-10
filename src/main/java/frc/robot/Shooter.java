@@ -3,6 +3,7 @@ import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 class Shooter{
 
@@ -16,12 +17,11 @@ private double elevatorSpeed;
     Shooter(){
 
         shooterWheel = new TalonSRX(CAN.SHOOTER_WHEEL);
-        //angler = new TalonSRX(CAN.ANGLER);
+        angler = new DoubleSolenoid(2, 3);
         elevator = new TalonSRX(CAN.ELEVATOR);
 
         maxWheelSpeed = 0.9;
         elevatorSpeed = 0.5;
-        //anglerSpeed = 0.5;
 
     }
 
@@ -77,14 +77,20 @@ private double elevatorSpeed;
 
     }
 
-    void angleUp() {
+    void toggleAngle(){
+
+        if(angler.get() == Value.kForward)
+            angler.set(Value.kReverse);
+
+        else
+            angler.set(Value.kForward);
 
     }
 
-    void angleDown(){
+    void setAngleSolenoid(DoubleSolenoid.Value value){
 
+        angler.set(value);
+        
     }
-
-
 
 }

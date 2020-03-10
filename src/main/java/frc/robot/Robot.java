@@ -124,6 +124,13 @@ public class Robot extends TimedRobot {
 
     else
       scar.shooter.stopElevator();
+
+    if(opController.getAButtonPressed())
+      scar.shooter.toggleAngle();
+
+    if(opController.getBButtonPressed())
+      scar.intake.toggleSolenoid();
+
   }
 
   void driveControls() {
@@ -170,4 +177,5 @@ public class Robot extends TimedRobot {
     //Right Trigger - Intake Out
       scar.intake.ballOut(triggerValues.getY());
   }
+  
 }
