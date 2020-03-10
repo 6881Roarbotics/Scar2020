@@ -24,6 +24,8 @@ public class Robot extends TimedRobot {
   private Scar scar;
   private Controller driveController;
   private Controller opController;
+  
+  private double speedMultiplier = 1;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -107,6 +109,7 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     opControls();
+    driveControls();
   }
 
   void opControls(){
@@ -121,7 +124,50 @@ public class Robot extends TimedRobot {
 
     else
       scar.shooter.stopElevator();
-
   }
 
+  void driveControls() {
+    
+    AxisValue axisValues = driveController.getCleansedAxes();
+    AxisValue triggerValues = driveController.getCleansedTriggers();
+
+    //Right Bumper - Boost
+    if(driveController.getBumper(Hand.kRight)) {
+
+      speedMultiplier = scar.drivetrain.getBoostSpeed();
+
+    //Left Bumper - Crawl
+    } else if(driveController.getBumper(Hand.kLeft)) {
+
+      speedMultiplier = scar.drivetrain.getCrawlSpeed();
+
+    } else {
+
+      speedMultiplier = scar.drivetrain.getDefaultSpeed();
+
+    }
+
+    //Left Stick - Drive, Right Stick - Turn
+    scar.drivetrain.setMotors(new AxisValue(axisValues.getX() * scar.drivetrain.getDefaultTurnSpeed(), axisValues.getY() * speedMultiplier));
+
+    //B Button - Climber Up
+    if(driveController.getBButton()) {
+
+      scar.climber.climb(1);
+
+    } 
+
+    // //A Button - Climber Down
+    else if(driveController.getAButton()) {
+
+      scar.climber.climb(-1);
+
+    }
+
+    //Left Trigger - Intake In
+      scar.intake.ballIn(triggerValues.getX());
+
+    //Right Trigger - Intake Out
+      scar.intake.ballOut(triggerValues.getY());
+  }
 }

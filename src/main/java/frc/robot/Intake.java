@@ -20,9 +20,15 @@ class Intake extends Spark{
     }
 
     //Makes balls go in
-    void ballIn() {
+    void ballIn(double power) {
 
-        intake.set(1);
+        intake.set(power);
+
+    }
+
+    void ballOut(double power) {
+
+        intake.set(-power);
 
     }
 

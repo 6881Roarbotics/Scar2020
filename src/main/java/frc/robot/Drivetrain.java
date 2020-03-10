@@ -11,6 +11,8 @@ class Drivetrain {
 
     private final double defaultSpeed;
     private final double defaultTurnSpeed;
+    private final double boostSpeed;
+    private final double crawlSpeed;
 
     Drivetrain(){
 
@@ -21,6 +23,8 @@ class Drivetrain {
 
         defaultSpeed = 0.5;
         defaultTurnSpeed = 0.5;
+        boostSpeed = 0.7;
+        crawlSpeed = 0.3;
         
     }
 
@@ -58,8 +62,6 @@ class Drivetrain {
         double sum = Math.pow(values.getY(), 3) + Math.pow(values.getX(), 3);
         double diff = Math.pow(values.getY(), 3) - Math.pow(values.getX(), 3);
 
-        double d = 0;
-
         if(values.getY() >= 0){
 
             if(values.getX() >= 0){
@@ -96,6 +98,18 @@ class Drivetrain {
     double getDefaultTurnSpeed(){
 
         return defaultTurnSpeed;
+
+    }
+    
+    double getBoostSpeed(){
+
+        return boostSpeed;
+
+    }
+
+    double getCrawlSpeed(){
+
+        return crawlSpeed;
 
     }
 
